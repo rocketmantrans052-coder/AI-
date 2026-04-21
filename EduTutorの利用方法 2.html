@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduTutorの利用方法ガイド</title>
+    <!-- デザインを簡単に整えるための道具（Tailwind CSS）を読み込んでいます -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- きれいなアイコンを表示するための道具（Font Awesome）を読み込んでいます -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* タップしたときにスルッと移動する魔法です */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* 横スクロールのバーを見えなくする魔法です */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-gray-800 font-sans pb-20">
+
+    <!-- 全体の枠組み（広い画面では最大幅を少し広げています） -->
+    <div class="max-w-4xl mx-auto px-4 md:px-8 pt-6 md:pt-10">
+
+        <!-- タイトル部分 -->
+        <header class="mb-6 flex items-center gap-3">
+            <div class="bg-blue-600 text-white p-2 rounded-xl">
+                <!-- 本のアイコン -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+            </div>
+            <div>
+                <h1 class="text-xl md:text-2xl font-bold text-gray-900">EduTutorの利用方法ガイド</h1>
+                <p class="text-xs md:text-sm text-gray-500">AIチューターと映像授業で成績アップ！</p>
+            </div>
+        </header>
+
+        <!-- 目次（グラスモーフィズムとふんわりアニメーション） -->
+        <div id="toc-sticky" class="sticky top-0 z-50 mb-8 -mx-4 px-4 md:mx-0 md:px-0 py-2 md:py-3 bg-slate-50/60 backdrop-blur-md border-b border-white shadow-sm">
+            <div class="md:hidden px-1">
+                <div class="flex items-center gap-3 rounded-2xl bg-white/80 border border-white/90 shadow-sm px-3 py-2">
+                    <span class="shrink-0 text-xs font-bold tracking-wide text-blue-700">目次</span>
+                    <div class="min-w-0 flex-1 text-xs text-gray-600">
+                        <span class="text-[11px] text-gray-500">現在：</span><span id="mobile-current-label" class="inline-block max-w-full font-semibold text-gray-700 truncate align-middle">はじめに</span>
+                    </div>
+                    <button id="mobile-toc-toggle" type="button" class="shrink-0 w-8 h-8 rounded-full border border-blue-200 bg-blue-50 text-blue-700 text-sm shadow-sm" aria-expanded="false" aria-controls="mobile-toc-panel" aria-label="目次を開く">
+                        <span id="mobile-toc-icon">▼</span>
+                    </button>
+                </div>
+                <div id="mobile-toc-panel" class="hidden mt-2 rounded-2xl bg-white/85 backdrop-blur-md border border-white/90 shadow-lg p-3">
+                    <nav class="space-y-2">
+                        <a href="#step1" data-label="はじめに" class="nav-link block w-full bg-blue-100 border border-blue-200 text-blue-700 text-sm font-bold px-4 py-3 rounded-2xl shadow-sm transition-all duration-200 ease-out">はじめに</a>
+                        <a href="#step2" data-label="映像を探したいとき" class="nav-link block w-full bg-white border border-gray-200 text-gray-600 text-sm font-bold px-4 py-3 rounded-2xl shadow-sm transition-all duration-200 ease-out">映像を探したいとき</a>
+                        <a href="#step3" data-label="問題の質問をしたいとき" class="nav-link block w-full bg-white border border-gray-200 text-gray-600 text-sm font-bold px-4 py-3 rounded-2xl shadow-sm transition-all duration-200 ease-out">問題の質問をしたいとき</a>
+                        <a href="#step4" data-label="チャットの使い分け" class="nav-link block w-full bg-white border border-gray-200 text-gray-600 text-sm font-bold px-4 py-3 rounded-2xl shadow-sm transition-all duration-200 ease-out">チャットの使い分け</a>
+                        <a href="#step5" data-label="学習の進め方" class="nav-link block w-full bg-white border border-gray-200 text-gray-600 text-sm font-bold px-4 py-3 rounded-2xl shadow-sm transition-all duration-200 ease-out">学習の進め方</a>
+                        <a href="#step6" data-label="対応教材について" class="nav-link block w-full bg-white border border-gray-200 text-gray-600 text-sm font-bold px-4 py-3 rounded-2xl shadow-sm transition-all duration-200 ease-out">対応教材について</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="hidden md:flex md:flex-wrap md:justify-center gap-3 pt-2 pb-2 px-2" id="nav-menu">
+                <a href="#step1" data-label="はじめに" class="nav-link bg-blue-100 border border-blue-200 text-blue-700 text-sm font-bold px-5 py-2.5 rounded-full shadow-sm hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-200/50 transition-all duration-300 ease-out">はじめに</a>
+                <a href="#step2" data-label="映像を探したいとき" class="nav-link bg-white border border-gray-200 text-gray-600 text-sm font-bold px-5 py-2.5 rounded-full shadow-sm hover:-translate-y-1 hover:shadow-lg hover:border-blue-300 hover:text-blue-600 transition-all duration-300 ease-out">映像を探したいとき</a>
+                <a href="#step3" data-label="問題の質問をしたいとき" class="nav-link bg-white border border-gray-200 text-gray-600 text-sm font-bold px-5 py-2.5 rounded-full shadow-sm hover:-translate-y-1 hover:shadow-lg hover:border-blue-300 hover:text-blue-600 transition-all duration-300 ease-out">問題の質問をしたいとき</a>
+                <a href="#step4" data-label="チャットの使い分け" class="nav-link bg-white border border-gray-200 text-gray-600 text-sm font-bold px-5 py-2.5 rounded-full shadow-sm hover:-translate-y-1 hover:shadow-lg hover:border-blue-300 hover:text-blue-600 transition-all duration-300 ease-out">チャットの使い分け</a>
+                <a href="#step5" data-label="学習の進め方" class="nav-link bg-white border border-gray-200 text-gray-600 text-sm font-bold px-5 py-2.5 rounded-full shadow-sm hover:-translate-y-1 hover:shadow-lg hover:border-blue-300 hover:text-blue-600 transition-all duration-300 ease-out">学習の進め方</a>
+                <a href="#step6" data-label="対応教材について" class="nav-link bg-white border border-gray-200 text-gray-600 text-sm font-bold px-5 py-2.5 rounded-full shadow-sm hover:-translate-y-1 hover:shadow-lg hover:border-blue-300 hover:text-blue-600 transition-all duration-300 ease-out">対応教材について</a>
+            </div>
+        </div>
+
+        <main class="space-y-8 md:space-y-12">
+
+            <!-- はじめに -->
+            <section id="step1" class="bg-blue-50/50 rounded-2xl p-5 md:p-8 shadow-sm border border-blue-100 scroll-mt-32 md:scroll-mt-28">
+                <h2 class="text-xl md:text-2xl font-bold text-blue-900 mb-6 flex items-center gap-2 border-b-2 border-blue-200 pb-3">
+                    EduTutorでできること
+                </h2>
+                <div class="space-y-6">
+                    <h3>EduTutorは、<span class="font-bold text-blue-800">「見るべき映像を探す」「わからない問題を質問する」</span>の2つの機能を持った、中学生向けの学習サポートアプリです。</h3>
+                    <p class="text-sm text-gray-700 leading-relaxed">
+                        最初に表示されるボタンから<span class="font-bold">「映像レコメンド」</span>または<span class="font-bold">「問題解説」</span>を選びます。</br>
+                        どちらのモードでも、先にAIの案内に沿って<span class="font-bold">中1・中2・中3</span>から学年を選んで進めます。</br>
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                        <div class="bg-white rounded-2xl border border-blue-100 shadow-sm p-5 md:p-6">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-11 h-11 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center shadow-sm">
+                                    <i class="fa-solid fa-video text-lg"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-base md:text-lg text-gray-900">見るべき映像を探す</h3>
+                                    <p class="text-xs md:text-sm text-blue-800">映像レコメンド</p>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                教科や単元を伝えると、おすすめの映像を案内してもらえます。</br>
+                                どの動画を見たら良いかわからないときは、AIに聞いてみましょう。
+                            </p>
+                        </div>
+                        <div class="bg-white rounded-2xl border border-blue-100 shadow-sm p-5 md:p-6">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-11 h-11 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center shadow-sm">
+                                    <i class="fa-solid fa-camera-retro text-lg"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-base md:text-lg text-gray-900">わからない問題を質問する</h3>
+                                    <p class="text-xs md:text-sm text-blue-800">問題解説</p>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                問題の画像を送って質問することができます。</br>
+                                答えだけを見せるのではなく、やり取りしながら、つまずいたところを一つずつ整理していきます。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 使い方① 映像を探す -->
+            <section id="step2" class="bg-white rounded-2xl p-5 md:p-8 shadow-sm border border-blue-100 scroll-mt-32 md:scroll-mt-28">
+                <h2 class="text-xl md:text-2xl font-bold text-blue-900 mb-2 flex items-center gap-2 border-b-2 border-blue-200 pb-3">
+                    使い方①　見るべき映像を探す
+                </h2>
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-bold text-blue-800 flex items-center gap-2 text-base md:text-lg">
+                        映像を探したいときは、EduTutorに聞こう
+                    </h3>
+                    <i class="fa-solid fa-circle-question text-2xl text-blue-400"></i>
+                </div>
+                <div class="inline-block bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-bold px-4 py-2 rounded-full text-sm md:text-base shadow-sm mb-2">
+                    <i class="fa-solid fa-lightbulb text-yellow-300 mr-1"></i> 「映像レコメンド」からスタート
+                </div>
+                <p class="text-xs md:text-sm text-blue-700 mt-2">最初に表示される「映像レコメンド」のボタンを選びます。AIの案内に沿って中1・中2・中3から学年を選び、そのあと見たい教科や単元を伝えます。</p>
+
+                <div class="space-y-6 mt-6 bg-slate-100/50 p-4 rounded-2xl">
+                    <div class="flex gap-3 justify-end">
+                        <div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tr-sm shadow-sm max-w-[90%] md:max-w-[85%]">
+                            <h4 class="font-bold text-sm md:text-base text-gray-800">「映像レコメンド」を選ぶ</h4>
+                            <p class="text-xs md:text-sm text-gray-600 mt-2 leading-relaxed">
+                                最初に表示されるボタンから選びます。
+                            </p>
+                        </div>
+                        <div class="w-10 h-10 bg-blue-50 border-2 border-blue-200 rounded-full flex items-center justify-center shadow-sm shrink-0 z-10 text-slate-500">
+                            <i class="fa-solid fa-user text-lg"></i>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 justify-start">
+                        <div class="w-10 h-10 bg-slate-700 border-2 border-slate-700 rounded-full flex items-center justify-center shadow-sm shrink-0 z-10 text-white">
+                            <i class="fa-solid fa-robot text-lg"></i>
+                        </div>
+                        <div class="bg-blue-100 border border-blue-200 p-3 md:p-4 rounded-2xl rounded-tl-sm shadow-sm max-w-[90%] md:max-w-[85%]">
+                            <h4 class="font-bold text-sm md:text-base text-blue-900">学年を教えてください</h4>
+                            <div class="flex flex-wrap gap-2 mt-3">
+                                <span class="bg-white border border-blue-200 text-blue-700 text-xs md:text-sm font-bold px-3 py-2 rounded-full shadow-sm">中1</span>
+                                <span class="bg-white border border-blue-200 text-blue-700 text-xs md:text-sm font-bold px-3 py-2 rounded-full shadow-sm">中2</span>
+                                <span class="bg-white border border-blue-200 text-blue-700 text-xs md:text-sm font-bold px-3 py-2 rounded-full shadow-sm">中3</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 justify-end">
+                        <div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tr-sm shadow-sm max-w-[90%] md:max-w-[85%]">
+                            <h4 class="font-bold text-sm md:text-base text-gray-800">中2です</h4>
+                        </div>
+                        <div class="w-10 h-10 bg-blue-50 border-2 border-blue-200 rounded-full flex items-center justify-center shadow-sm shrink-0 z-10 text-slate-500">
+                            <i class="fa-solid fa-user text-lg"></i>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 justify-end">
+                        <div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tr-sm shadow-sm max-w-[90%] md:max-w-[85%]">
+                            <h4 class="font-bold text-sm md:text-base text-gray-800">教科や単元を伝える</h4>
+                            <div class="bg-gray-50 p-2.5 rounded-lg text-xs md:text-sm text-gray-600 mt-2 space-y-1.5 border border-gray-100">
+                                <p>例「数学の一次関数の動画が見たい」</p>
+                                <p>例「英語の受動態が苦手」</p>
+                                <p>例「理科の電流のところを復習したい」</p>
+                            </div>
+                        </div>
+                        <div class="w-10 h-10 bg-blue-50 border-2 border-blue-200 rounded-full flex items-center justify-center shadow-sm shrink-0 z-10 text-slate-500">
+                            <i class="fa-solid fa-user text-lg"></i>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 justify-start">
+                        <div class="w-10 h-10 bg-slate-700 border-2 border-slate-700 rounded-full flex items-center justify-center shadow-sm shrink-0 z-10 text-white">
+                            <i class="fa-solid fa-robot text-lg"></i>
+                        </div>
+                        <div class="bg-blue-100 border border-blue-200 p-3 md:p-4 rounded-2xl rounded-tl-sm shadow-sm max-w-[90%] md:max-w-[85%]">
+                            <h4 class="font-bold text-sm md:text-base text-blue-900">この単元ならこちらの映像がおすすめです</h4>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-xs md:text-sm text-gray-500 mt-4">※ 単元名や内容があいまいなときは、AIが教科や範囲を聞き返すことがあります。</p>
+            </section>
+
+            <!-- 使い方② 問題の質問をしたいとき -->
+            <section id="step3" class="bg-white rounded-2xl p-5 md:p-8 shadow-sm border border-gray-100 scroll-mt-32 md:scroll-mt-28">
+                <h2 class="text-xl md:text-2xl font-bold text-blue-900 mb-2 flex items-center gap-2 border-b-2 border-blue-200 pb-3">
+                    使い方②　問題の質問をする
+                </h2>
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-bold text-blue-800 flex items-center gap-2 text-base md:text-lg">
+                        問題の画像を送り、やり取りしながら理解しよう
+                    </h3>
+                    <i class="fa-solid fa-mobile-screen text-2xl text-blue-400"></i>
+                </div>
+                <div class="inline-block bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-bold px-4 py-2 rounded-full text-sm md:text-base shadow-sm mb-5">
+                    <i class="fa-solid fa-camera text-blue-100 mr-1"></i> 「問題解説」からスタート
+                </div>
+                <p class="text-xs md:text-sm text-blue-700 mt-2">最初に表示される「問題解説」のボタンを選びます。AIの案内に沿って中1・中2・中3から学年を選び、そのあと、教えてほしい問題の画像を送ります。</p>
+
+                <div class="space-y-6 mb-5 bg-slate-100/50 p-4 rounded-2xl">
+                    <div class="flex gap-3 justify-end">
+                        <div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tr-sm shadow-sm max-w-[90%] md:max-w-[85%]">
+                            <h4 class="font-bold text-sm md:text-base text-gray-800">「問題解説」を選ぶ</h4>
+                            <p class="text-xs md:text-sm text-gray-600 mt-2 leading-relaxed">
+                                最初に表示されるボタンから選びます。
+                            </p>
+                        </div>
+                        <div class="w-10 h-10 bg-blue-50 border-2 border-blue-200 rounded-full flex items-center justify-center shadow-sm shrink-0 z-10 text-slate-500">
+                            <i class="fa-solid fa-user text-lg"></i>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 justify-start">
+                        <div class="w-10 h-10 bg-slate-700 border-2 border-slate-700 rounded-full flex items-center justify-center shadow-sm shrink-0 z-10 text-white">
+                            <i class="fa-solid fa-robot text-lg"></i>
+                        </div>
+                        <div class="bg-blue-100 border border-blue-200 p-3 md:p-4 rounded-2xl rounded-tl-sm shadow-sm max-w-[90%] md:max-w-[85%]">
+                            <h4 class="font-bold text-sm md:text-base text-blue-900">学年を教えてください</h4>
+                            <div class="flex flex-wrap gap-2 mt-3">
+                                <span class="bg-white border border-blue-200 text-blue-700 text-xs md:text-sm font-bold px-3 py-2 rounded-full shadow-sm">中1</span>
+                                <span class="bg-white border border-blue-200 text-blue-700 text-xs md:text-sm font-bold px-3 py-2 rounded-full shadow-sm">中2</span>
+                                <span class="bg-white border border-blue-200 text-blue-700 text-xs md:text-sm font-bold px-3 py-2 rounded-full shadow-sm">中3</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 justify-end">
+                        <div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tr-sm shadow-sm max-w-[90%] md:max-w-[85%]">
+                            <h4 class="font-bold text-sm md:text-base text-gray-800">中2です</h4>
+                        </div>
+                        <div class="w-10 h-10 bg-blue-50 border-2 border-blue-200 rounded-full flex items-center justify-center shadow-sm shrink-0 z-10 text-slate-500">
+                            <i class="fa-solid fa-user text-lg"></i>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 justify-start">
+                        <div class="w-10 h-10 bg-slate-700 border-2 border-slate-700 rounded-full flex items-center justify-center shadow-sm shrink-0 z-10 text-white">
+                            <i class="fa-solid fa-robot text-lg"></i>
+                        </div>
+                        <div class="bg-blue-100 border border-blue-200 p-3 md:p-4 rounded-2xl rounded-tl-sm shadow-sm max-w-[90%] md:max-w-[85%]">
+                            <h4 class="font-bold text-sm md:text-base text-blue-900">問題の画像を送ってください</h4>
+                            <div class="bg-white/70 p-2.5 rounded-lg text-xs md:text-sm text-blue-800 mt-2 space-y-1.5">
+                                <p>複数の問題が写っているときは、質問したい問題番号もいっしょに伝えてください。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 justify-end">
+                        <div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tr-sm shadow-sm max-w-[90%] md:max-w-[85%]">
+                            <h4 class="font-bold text-sm md:text-base text-gray-800">この画像の問3をお願いします</h4>
+                            <div class="bg-gray-50 p-2.5 rounded-lg text-xs md:text-sm text-gray-600 mt-2 space-y-1.5 border border-gray-100">
+                                <p>画像を送ったあと、複数の問題が写っているときは番号も伝えます。</p>
+                                <p>例「3」</p>
+                                <p>例「(3)」</p>
+                                <p>例「問3」</p>
+                            </div>
+                        </div>
+                        <div class="w-10 h-10 bg-blue-50 border-2 border-blue-200 rounded-full flex items-center justify-center shadow-sm shrink-0 z-10 text-slate-500">
+                            <i class="fa-solid fa-user text-lg"></i>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 justify-start">
+                        <div class="w-10 h-10 bg-slate-700 border-2 border-slate-700 rounded-full flex items-center justify-center shadow-sm shrink-0 z-10 text-white">
+                            <i class="fa-solid fa-robot text-lg"></i>
+                        </div>
+                        <div class="bg-blue-100 border border-blue-200 p-3 md:p-4 rounded-2xl rounded-tl-sm shadow-sm max-w-[90%] md:max-w-[85%]">
+                            <h4 class="font-bold text-sm md:text-base text-blue-900">まずは問題の内容を確認しましょう</h4>
+                            <div class="bg-white/70 p-2.5 rounded-lg text-xs md:text-sm text-blue-800 mt-2 space-y-1.5">
+                                <p>文字や数字、表やグラフなどが見えにくいときは、追加の画像をお願いすることがあります。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 justify-start">
+                        <div class="w-10 h-10 bg-slate-700 border-2 border-slate-700 rounded-full flex items-center justify-center shadow-sm shrink-0 z-10 text-white">
+                            <i class="fa-solid fa-robot text-lg"></i>
+                        </div>
+                        <div class="bg-blue-100 border border-blue-200 p-3 md:p-4 rounded-2xl rounded-tl-sm shadow-sm max-w-[90%] md:max-w-[85%]">
+                            <h4 class="font-bold text-sm md:text-base text-blue-900">考え方を一緒に整理していきましょう</h4>
+                            <div class="bg-white/70 p-2.5 rounded-lg text-xs md:text-sm text-blue-800 mt-2 space-y-1.5">
+                                <p>答えだけをすぐに出すのではなく、どこでつまずいたかを確認しながら進めます。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 justify-start">
+                        <div class="w-10 h-10 bg-slate-700 border-2 border-slate-700 rounded-full flex items-center justify-center shadow-sm shrink-0 z-10 text-white">
+                            <i class="fa-solid fa-robot text-lg"></i>
+                        </div>
+                        <div class="bg-blue-100 border border-blue-200 p-3 md:p-4 rounded-2xl rounded-tl-sm shadow-sm max-w-[90%] md:max-w-[85%]">
+                            <h4 class="font-bold text-sm md:text-base text-blue-900">この画像の問題は、まだ残っていますか？ それとも、これで全部ですか？</h4>
+                            <div class="flex flex-wrap gap-2 mt-3">
+                                <span class="bg-white border border-blue-200 text-blue-700 text-xs md:text-sm font-bold px-3 py-2 rounded-full shadow-sm">まだ問題が残っている</span>
+                                <span class="bg-white border border-blue-200 text-blue-700 text-xs md:text-sm font-bold px-3 py-2 rounded-full shadow-sm">これで全部</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 justify-end">
+                        <div class="bg-white border border-gray-200 p-3 md:p-4 rounded-2xl rounded-tr-sm shadow-sm max-w-[90%] md:max-w-[85%]">
+                            <h4 class="font-bold text-sm md:text-base text-gray-800">この画像はこれで全部です</h4>
+                        </div>
+                        <div class="w-10 h-10 bg-blue-50 border-2 border-blue-200 rounded-full flex items-center justify-center shadow-sm shrink-0 z-10 text-slate-500">
+                            <i class="fa-solid fa-user text-lg"></i>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 justify-start">
+                        <div class="w-10 h-10 bg-slate-700 border-2 border-slate-700 rounded-full flex items-center justify-center shadow-sm shrink-0 z-10 text-white">
+                            <i class="fa-solid fa-robot text-lg"></i>
+                        </div>
+                        <div class="bg-blue-100 border border-blue-200 p-3 md:p-4 rounded-2xl rounded-tl-sm shadow-sm max-w-[90%] md:max-w-[85%]">
+                            <h4 class="font-bold text-sm md:text-base text-blue-900">次はどうする？</h4>
+                            <div class="flex flex-wrap gap-2 mt-3">
+                                <span class="bg-white border border-blue-200 text-blue-700 text-xs md:text-sm font-bold px-3 py-2 rounded-full shadow-sm">関連する映像はどれ？</span>
+                                <span class="bg-white border border-blue-200 text-blue-700 text-xs md:text-sm font-bold px-3 py-2 rounded-full shadow-sm">別の問題を教えて</span>
+                                <span class="bg-white border border-blue-200 text-blue-700 text-xs md:text-sm font-bold px-3 py-2 rounded-full shadow-sm">今日はここまで</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-green-50 border border-green-200 rounded-xl p-4">
+                    <h3 class="font-bold text-sm md:text-base text-green-800 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-camera"></i> 写真の撮り方 4つのコツ
+                    </h3>
+                    <ul class="font-bold text-xs md:text-sm text-green-700 space-y-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-2 gap-y-0">
+                        <li class="flex items-center gap-1.5"><span class="bg-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] shadow-sm shrink-0 text-green-500"><i class="fa-solid fa-check"></i></span> 問題全体が切れずに写っている</li>
+                        <li class="flex items-center gap-1.5"><span class="bg-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] shadow-sm shrink-0 text-green-500"><i class="fa-solid fa-check"></i></span> 紙が平らになっている</li>
+                        <li class="flex items-center gap-1.5"><span class="bg-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] shadow-sm shrink-0 text-green-500"><i class="fa-solid fa-check"></i></span> 文字や数字、目盛りがぼやけていない</li>
+                        <li class="flex items-center gap-1.5"><span class="bg-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] shadow-sm shrink-0 text-green-500"><i class="fa-solid fa-check"></i></span> なるべく真正面から撮る</li>
+                    </ul>
+                    <p class="text-xs md:text-sm text-gray-700 mt-3 leading-relaxed">図やグラフがある問題は、まず全体写真を送り、必要な部分は拡大写真も送ると確認がスムーズです。</p>
+                </div>
+            </section>
+            
+            <section id="step4" class="bg-red-50 rounded-2xl p-5 md:p-8 shadow-sm border border-red-100 scroll-mt-32 md:scroll-mt-28">
+            <h2 class="text-xl md:text-2xl font-bold text-red-500 mb-5 flex items-center gap-2 border-b-2 border-red-200 pb-3">
+                <i class="fa-solid fa-comments"></i>
+                チャットの使い分け
+            </h2>
+
+            <div class="space-y-4 text-sm md:text-base text-gray-900 leading-7">
+                <p>
+                チャットは、内容ごとに分けて使うと整理しやすくなります。
+                </p>
+
+                <div class="bg-white/80 rounded-xl border border-red-200 p-4">
+                <p class="font-semibold mb-2 text-red-600">新しいチャットにした方がよいとき</p>
+                <ul class="list-decimal pl-6 space-y-1">
+                    <li class="font-semibold">教科が変わるとき</li>
+                    <li class="font-semibold">別の教材に変わるとき</li>
+                    <li class="font-semibold">これまでの話と関係ない質問をするとき</li>
+                </ul>
+                </div>
+                <p class="text-xs md:text-sm text-gray-700 mt-3 leading-relaxed">
+                    同じ問題の続きを質問するときや、そのまま次の行動を選ぶときは、同じチャットのままで大丈夫です。
+                </p>
+            </div>
+            </section>
+
+            <!-- 学習の進め方 -->
+            <section id="step5" class="bg-white rounded-2xl p-5 md:p-8 shadow-sm border border-gray-100 scroll-mt-32 md:scroll-mt-28">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-5 flex items-center gap-2 border-b-2 border-gray-200 pb-3">
+                    <i class="fa-solid fa-circle-info"></i>
+                    おすすめの学習の進め方
+                </h2>
+                <p class="text-sm md:text-base text-gray-600 mb-6">学習を進めるときは、この流れがおすすめです。自分で考える時間と、映像や質問で確かめる時間をうまく組み合わせましょう。</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                    <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col h-full">
+                        <div class="p-4 md:p-5">
+                            <div class="flex items-center gap-3 mb-3 border-b border-gray-100 pb-3">
+                                <div class="bg-blue-600 text-white font-bold rounded w-8 h-8 flex items-center justify-center shrink-0">1</div>
+                                <h3 class="font-bold text-base md:text-lg text-gray-800">問題を解いてみる</h3>
+                            </div>
+                            <p class="text-sm text-gray-600">まずは答えや解説を見ずに、自分の力で解いてみましょう。</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col h-full">
+                        <div class="p-4 md:p-5 bg-white">
+                            <div class="flex items-center gap-3 mb-3 border-b border-gray-100 pb-3">
+                                <div class="bg-blue-600 text-white font-bold rounded w-8 h-8 flex items-center justify-center shrink-0">2</div>
+                                <h3 class="font-bold text-base md:text-lg text-gray-800">丸つけをして、自分の理解度を確認する</h3>
+                            </div>
+                            <p class="text-sm text-gray-600">解き終わったら答え合わせをして、「できた問題」「できなかった問題」「できたけれど不安な問題」を仕分けましょう。</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col h-full">
+                        <div class="p-4 md:p-5 bg-white">
+                            <div class="flex items-center gap-3 mb-3 border-b border-gray-100 pb-3">
+                                <div class="bg-blue-600 text-white font-bold rounded w-8 h-8 flex items-center justify-center shrink-0">3</div>
+                                <h3 class="font-bold text-base md:text-lg text-gray-800">質問する・映像を見る</h3>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-6">答えや解説を見てもよくわからないときには、EduTutorを活用しましょう。</p>
+                        </div>
+                        <div class="bg-slate-100/70 p-4 flex-grow flex flex-col items-center justify-center relative border-t border-slate-200">
+                            <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-white border-2 border-blue-500 text-gray-800 font-bold text-xs px-4 py-1 rounded-full shadow-sm whitespace-nowrap">
+                                理解できるまで確認する
+                            </div>
+                            <div class="text-gray-300 mb-1 mt-2">▲</div>
+                            <div class="flex items-center gap-2 font-bold text-gray-800 mb-2">
+                                <div class="w-7 h-7 bg-slate-700 rounded-full flex items-center justify-center shadow-sm text-white">
+                                    <i class="fa-solid fa-robot text-xs"></i>
+                                </div>
+                                EduTutor
+                            </div>
+                            <p class="text-xs text-gray-600 text-center">
+                                問題の画像を送って質問したり、</br>
+                                関連映像を見たりして、理解を深めましょう。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col h-full">
+                        <div class="p-4 md:p-5">
+                            <div class="flex items-center gap-3 mb-3 border-b border-gray-100 pb-3">
+                                <div class="bg-blue-600 text-white font-bold rounded w-8 h-8 flex items-center justify-center shrink-0">4</div>
+                                <h3 class="font-bold text-base md:text-lg text-gray-800">もう一度解き直す</h3>
+                            </div>
+                            <p class="text-sm text-gray-600">答えや解説を見ずにもう一度解いて、理解度を確認しましょう。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 対応教材について -->
+            <section id="step6" class="bg-white rounded-2xl p-5 md:p-8 shadow-sm border border-gray-100 scroll-mt-32 md:scroll-mt-28">
+                <h2 class="text-lg md:text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                    対応教材について
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
+                    <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
+                        <h3 class="font-bold text-sm md:text-base text-gray-800 mb-3 flex items-center gap-2">
+                            <span class="text-xl text-blue-500 w-6 text-center"><i class="fa-solid fa-book-open"></i></span> 通年学習用
+                        </h3>
+                        <p class="text-xs text-gray-500 mb-2">ふだんの授業や家庭学習で使う教材です。</p>
+                        <ul class="text-sm text-gray-700 space-y-1 ml-1">
+                            <li class="flex gap-2"><span>•</span> 英語・数学：My Juck / My Stage（学年別）</li>
+                            <li class="flex gap-2"><span>•</span> 社会・理科：My Juck まとめ（共通）</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
+                        <h3 class="font-bold text-sm md:text-base text-gray-800 mb-3 flex items-center gap-2">
+                            <span class="text-xl text-blue-500 w-6 text-center"><i class="fa-solid fa-sun"></i></span> 長期休暇用
+                        </h3>
+                        <p class="text-xs text-gray-500 mb-2">夏休みや冬休みなど、まとまった復習をするときに使う教材です。</p>
+                        <ul class="text-sm text-gray-700 space-y-1 ml-1">
+                            <li class="flex gap-2"><span>•</span> 英語・数学：Focus（学年別）</li>
+                            <li class="flex gap-2"><span>•</span> 全5教科：基礎完成（全学年共通）</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 md:col-span-2 xl:col-span-1 md:max-w-md md:mx-auto xl:max-w-none xl:mx-0">
+                        <h3 class="font-bold text-sm md:text-base text-gray-800 mb-3 flex items-center gap-2">
+                            <span class="text-xl text-blue-500 w-6 text-center"><i class="fa-solid fa-bullseye"></i></span> 入試対策用
+                        </h3>
+                        <p class="text-xs text-gray-500 mb-2">入試前の総仕上げや、弱点の確認に使う教材です。</p>
+                        <ul class="text-sm text-gray-700 space-y-1 ml-1">
+                            <li class="flex gap-2"><span>•</span> 全教科：入試演習問題（公立高校入試）</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+        
+        <!-- フッター -->
+        <footer class="mt-16 text-center text-sm text-gray-400 pb-12">
+            <p>EduTutor 学習サポート</p>
+        </footer>
+
+    </div>
+
+    <!-- スクロールに合わせて目次の色を変える魔法（JavaScript） -->
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tocSticky = document.getElementById('toc-sticky');
+            const mobileTocToggle = document.getElementById('mobile-toc-toggle');
+            const mobileTocPanel = document.getElementById('mobile-toc-panel');
+            const mobileTocIcon = document.getElementById('mobile-toc-icon');
+            const mobileCurrentLabel = document.getElementById('mobile-current-label');
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const lastSectionId = sections.length > 0 ? sections[sections.length - 1].id : 'step1';
+            const sectionLabels = {};
+
+            navLinks.forEach(link => {
+                const targetId = link.getAttribute('href').replace('#', '');
+                if (!sectionLabels[targetId]) {
+                    sectionLabels[targetId] = link.dataset.label || link.textContent.trim();
+                }
+            });
+
+            function isMobileView() {
+                return window.innerWidth < 768;
+            }
+
+            function setMobileTocOpen(isOpen) {
+                if (!mobileTocPanel || !mobileTocToggle || !mobileTocIcon) {
+                    return;
+                }
+                mobileTocPanel.classList.toggle('hidden', !isOpen);
+                mobileTocToggle.setAttribute('aria-expanded', String(isOpen));
+                mobileTocToggle.setAttribute('aria-label', isOpen ? '目次を閉じる' : '目次を開く');
+                mobileTocIcon.textContent = isOpen ? '▲' : '▼';
+            }
+
+            function getStickyOffset() {
+                const stickyHeight = tocSticky ? tocSticky.offsetHeight : 0;
+                return stickyHeight + (isMobileView() ? 12 : 16);
+            }
+
+            function syncSectionScrollMargin() {
+                const scrollMarginTop = `${getStickyOffset()}px`;
+                sections.forEach(section => {
+                    section.style.scrollMarginTop = scrollMarginTop;
+                });
+            }
+
+            function updateCurrentLabel(currentId) {
+                if (!mobileCurrentLabel) {
+                    return;
+                }
+                mobileCurrentLabel.textContent = sectionLabels[currentId] || 'はじめに';
+            }
+
+            function scrollToSection(sectionId) {
+                const targetSection = document.getElementById(sectionId);
+                if (!targetSection) {
+                    return;
+                }
+                syncSectionScrollMargin();
+                const targetTop = window.scrollY + targetSection.getBoundingClientRect().top - getStickyOffset();
+                window.scrollTo({
+                    top: Math.max(targetTop, 0),
+                    behavior: 'smooth'
+                });
+            }
+
+            function changeLinkState() {
+                let currentId = 'step1';
+                const stickyOffset = getStickyOffset();
+
+                // ページの一番下までスクロールした時の判定（最後の項目を確実にアクティブにするため）
+                if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 20) {
+                    currentId = lastSectionId;
+                } else {
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop;
+                        if (window.scrollY >= sectionTop - stickyOffset) {
+                            currentId = section.getAttribute('id');
+                        }
+                    });
+                }
+
+                // 目次の色を切り替える
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href') === '#' + currentId) {
+                        // 見ている場所（アクティブ）：青色にする
+                        link.classList.add('bg-blue-100', 'border-blue-200', 'text-blue-700');
+                        link.classList.remove('bg-white', 'border-gray-200', 'text-gray-600');
+                    } else {
+                        // 見ていない場所（非アクティブ）：白色にする
+                        link.classList.add('bg-white', 'border-gray-200', 'text-gray-600');
+                        link.classList.remove('bg-blue-100', 'border-blue-200', 'text-blue-700');
+                    }
+                });
+
+                updateCurrentLabel(currentId);
+            }
+
+            if (mobileTocToggle) {
+                mobileTocToggle.addEventListener('click', function() {
+                    const isOpen = mobileTocToggle.getAttribute('aria-expanded') === 'true';
+                    setMobileTocOpen(!isOpen);
+                    syncSectionScrollMargin();
+                    changeLinkState();
+                });
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    const targetId = link.getAttribute('href').replace('#', '');
+                    event.preventDefault();
+
+                    if (isMobileView()) {
+                        setMobileTocOpen(false);
+                        requestAnimationFrame(function() {
+                            scrollToSection(targetId);
+                        });
+                    } else {
+                        scrollToSection(targetId);
+                    }
+                });
+            });
+
+            // スクロールした時に実行
+            window.addEventListener('scroll', changeLinkState);
+            window.addEventListener('resize', function() {
+                if (!isMobileView()) {
+                    setMobileTocOpen(false);
+                }
+                syncSectionScrollMargin();
+                changeLinkState();
+            });
+            // 最初にページを開いた時にも実行
+            syncSectionScrollMargin();
+            changeLinkState();
+        });
+    </script>
+</body>
+</html>
